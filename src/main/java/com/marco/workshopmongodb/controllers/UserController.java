@@ -2,6 +2,8 @@ package com.marco.workshopmongodb.controllers;
 
 
 import com.marco.workshopmongodb.domain.User;
+import com.marco.workshopmongodb.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +17,12 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
-        User maria = new User("1", "Maria", "maria@gmail.com");
-        User wender = new User("2", "wender", "wender123@gmail.com");
-        List<User> list = new ArrayList<>(Arrays.asList(maria, wender));
+
+        List<User> list = userService.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
